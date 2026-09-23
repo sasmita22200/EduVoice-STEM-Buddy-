@@ -1,0 +1,6 @@
+{
+  "name": "EduVoice STEM Buddy",
+  "description": "Bilingual Tamil Nadu State Board (Samacheer Kalvi) Classes 9–12 learning platform with AI tutor STEMBuddy, dated exam notes, quizzes, diagrams, and student progress tracking.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

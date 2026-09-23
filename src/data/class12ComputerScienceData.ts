@@ -1,0 +1,54 @@
+import { Chapter, NoteItem, SummaryItem, ChapterQuiz, SchematicDiagram, VideoExplainer } from '../types';
+import { CS_UNIT_1_CHAPTERS, CS_UNIT_1_NOTES, CS_UNIT_1_SUMMARIES, CS_UNIT_1_QUIZZES, CS_UNIT_1_DIAGRAMS, CS_UNIT_1_VIDEOS } from './class12CSUnit1';
+import { CS_UNIT_2_CHAPTERS, CS_UNIT_2_NOTES, CS_UNIT_2_SUMMARIES, CS_UNIT_2_QUIZZES, CS_UNIT_2_DIAGRAMS, CS_UNIT_2_VIDEOS } from './class12CSUnit2';
+import { CS_UNIT_3_CHAPTERS, CS_UNIT_3_NOTES, CS_UNIT_3_SUMMARIES, CS_UNIT_3_QUIZZES, CS_UNIT_3_DIAGRAMS, CS_UNIT_3_VIDEOS } from './class12CSUnit3';
+import { CS_UNIT_4_CHAPTERS, CS_UNIT_4_NOTES, CS_UNIT_4_SUMMARIES, CS_UNIT_4_QUIZZES, CS_UNIT_4_DIAGRAMS, CS_UNIT_4_VIDEOS } from './class12CSUnit4';
+import { CS_UNIT_5_CHAPTERS, CS_UNIT_5_NOTES, CS_UNIT_5_SUMMARIES, CS_UNIT_5_QUIZZES, CS_UNIT_5_DIAGRAMS, CS_UNIT_5_VIDEOS } from './class12CSUnit5';
+
+export const CLASS_12_CS_CHAPTERS: Chapter[] = [
+  ...CS_UNIT_1_CHAPTERS,
+  ...CS_UNIT_2_CHAPTERS,
+  ...CS_UNIT_3_CHAPTERS,
+  ...CS_UNIT_4_CHAPTERS,
+  ...CS_UNIT_5_CHAPTERS
+];
+
+export const CLASS_12_CS_NOTES: Record<string, NoteItem> = {
+  ...CS_UNIT_1_NOTES,
+  ...CS_UNIT_2_NOTES,
+  ...CS_UNIT_3_NOTES,
+  ...CS_UNIT_4_NOTES,
+  ...CS_UNIT_5_NOTES
+};
+
+export const CLASS_12_CS_SUMMARIES: Record<string, SummaryItem> = {
+  ...CS_UNIT_1_SUMMARIES,
+  ...CS_UNIT_2_SUMMARIES,
+  ...CS_UNIT_3_SUMMARIES,
+  ...CS_UNIT_4_SUMMARIES,
+  ...CS_UNIT_5_SUMMARIES
+};
+
+export const CLASS_12_CS_QUIZZES: Record<string, ChapterQuiz> = {
+  ...CS_UNIT_1_QUIZZES,
+  ...CS_UNIT_2_QUIZZES,
+  ...CS_UNIT_3_QUIZZES,
+  ...CS_UNIT_4_QUIZZES,
+  ...CS_UNIT_5_QUIZZES
+};
+
+export const CLASS_12_CS_DIAGRAMS: Record<string, SchematicDiagram> = {
+  ...CS_UNIT_1_DIAGRAMS,
+  ...CS_UNIT_2_DIAGRAMS,
+  ...CS_UNIT_3_DIAGRAMS,
+  ...CS_UNIT_4_DIAGRAMS,
+  ...CS_UNIT_5_DIAGRAMS
+};
+
+export const CLASS_12_CS_VIDEOS: Record<string, VideoExplainer> = {
+  ...CS_UNIT_1_VIDEOS,
+  ...CS_UNIT_2_VIDEOS,
+  ...CS_UNIT_3_VIDEOS,
+  ...CS_UNIT_4_VIDEOS,
+  ...CS_UNIT_5_VIDEOS
+};

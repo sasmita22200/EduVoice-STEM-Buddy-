@@ -1,0 +1,67 @@
+import { Chapter, NoteItem, SummaryItem, ChapterQuiz, SchematicDiagram, VideoExplainer } from '../types';
+import {
+  CLASS_10_TAMIL_PART1_CHAPTERS,
+  CLASS_10_TAMIL_PART1_NOTES,
+  CLASS_10_TAMIL_PART1_SUMMARIES,
+  CLASS_10_TAMIL_PART1_QUIZZES,
+  CLASS_10_TAMIL_PART1_DIAGRAMS,
+  CLASS_10_TAMIL_PART1_VIDEOS
+} from './class10TamilPart1';
+import {
+  CLASS_10_TAMIL_PART2_CHAPTERS,
+  CLASS_10_TAMIL_PART2_NOTES,
+  CLASS_10_TAMIL_PART2_SUMMARIES,
+  CLASS_10_TAMIL_PART2_QUIZZES,
+  CLASS_10_TAMIL_PART2_DIAGRAMS,
+  CLASS_10_TAMIL_PART2_VIDEOS
+} from './class10TamilPart2';
+
+/**
+ * Authentic Tamil Nadu Samacheer Kalvi Class 10 Tamil Master Dataset (Iyals 1 to 9 / 49 Total Lessons)
+ * Includes complete Notes, Summaries, Board-Pattern Quizzes, SVG Diagrams & Storyboard Explainer Videos.
+ */
+export const CLASS_10_TAMIL_CHAPTERS: Chapter[] = [
+  ...CLASS_10_TAMIL_PART1_CHAPTERS,
+  ...CLASS_10_TAMIL_PART2_CHAPTERS
+];
+
+export const CLASS_10_TAMIL_NOTES: Record<string, NoteItem> = {
+  ...CLASS_10_TAMIL_PART1_NOTES,
+  ...CLASS_10_TAMIL_PART2_NOTES
+};
+
+export const CLASS_10_TAMIL_SUMMARIES: Record<string, SummaryItem> = {
+  ...CLASS_10_TAMIL_PART1_SUMMARIES,
+  ...CLASS_10_TAMIL_PART2_SUMMARIES
+};
+
+export const CLASS_10_TAMIL_QUIZZES: Record<string, ChapterQuiz> = {
+  ...CLASS_10_TAMIL_PART1_QUIZZES,
+  ...CLASS_10_TAMIL_PART2_QUIZZES
+};
+
+export const CLASS_10_TAMIL_DIAGRAMS: Record<string, SchematicDiagram> = {
+  ...CLASS_10_TAMIL_PART1_DIAGRAMS,
+  ...CLASS_10_TAMIL_PART2_DIAGRAMS
+};
+
+export const CLASS_10_TAMIL_VIDEOS: Record<string, VideoExplainer> = {
+  ...CLASS_10_TAMIL_PART1_VIDEOS,
+  ...CLASS_10_TAMIL_PART2_VIDEOS
+};
+
+// Re-export parts for modularity
+export {
+  CLASS_10_TAMIL_PART1_CHAPTERS,
+  CLASS_10_TAMIL_PART1_NOTES,
+  CLASS_10_TAMIL_PART1_SUMMARIES,
+  CLASS_10_TAMIL_PART1_QUIZZES,
+  CLASS_10_TAMIL_PART1_DIAGRAMS,
+  CLASS_10_TAMIL_PART1_VIDEOS,
+  CLASS_10_TAMIL_PART2_CHAPTERS,
+  CLASS_10_TAMIL_PART2_NOTES,
+  CLASS_10_TAMIL_PART2_SUMMARIES,
+  CLASS_10_TAMIL_PART2_QUIZZES,
+  CLASS_10_TAMIL_PART2_DIAGRAMS,
+  CLASS_10_TAMIL_PART2_VIDEOS
+};
