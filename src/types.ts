@@ -104,6 +104,15 @@ export interface NoteItem {
   keyFormulas?: Array<string | { nameEn: string; nameTa: string; formula: string; explanationEn: string; explanationTa: string }>;
   workedExamples?: Array<{ question?: string; solution?: string; questionEn?: string; questionTa?: string; solutionEn?: string; solutionTa?: string; answer?: string }>;
   rememberBoxes?: Array<{ tipEn: string; tipTa: string }>;
+  overviewEn?: string;
+  overviewTa?: string;
+  learningObjectivesEn?: string[];
+  learningObjectivesTa?: string[];
+  whyItMattersEn?: string;
+  whyItMattersTa?: string;
+  importantTerms?: Array<{ termEn: string; termTa: string; definitionEn: string; definitionTa: string }>;
+  examQuestions?: Array<{ type: 'vsa' | 'sa' | 'la' | 'conceptual' | 'application'; marks: number; questionEn: string; questionTa: string; answerEn: string; answerTa: string }>;
+  commonMistakes?: Array<{ mistakeEn: string; mistakeTa: string; correctionEn: string; correctionTa: string }>;
   revisions?: NoteRevision[];
 }
 

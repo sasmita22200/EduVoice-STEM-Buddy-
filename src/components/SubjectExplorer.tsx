@@ -348,13 +348,13 @@ export const SubjectExplorer: React.FC<SubjectExplorerProps> = ({
             ))}
           </div>
 
-          {/* Iyal / Unit / Chapter filter (if Class 9, 10, or Class 12 Tamil/English) */}
-          {(selectedClass === 9 || selectedClass === 10 || (selectedClass === 12 && (selectedSubjectId === 'c12_tamil' || selectedSubjectId === 'c12_english'))) && (
+          {/* Iyal / Unit / Chapter filter (if Class 9, 10, Class 12 Tamil/English, or Class 11 Botany) */}
+          {(selectedClass === 9 || selectedClass === 10 || (selectedClass === 12 && (selectedSubjectId === 'c12_tamil' || selectedSubjectId === 'c12_english')) || (selectedClass === 11 && selectedSubjectId === 'c11_botany')) && (
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
               <span className="text-[11px] font-extrabold text-slate-500 shrink-0 mr-1">
                 {selectedSubjectId === 'c9_maths'
                   ? (isTa ? 'பாடம்:' : 'Chapter:')
-                  : (selectedSubjectId === 'c9_english' || selectedSubjectId === 'c12_english' || selectedSubjectId === 'c9_science')
+                  : (selectedSubjectId === 'c9_english' || selectedSubjectId === 'c12_english' || selectedSubjectId === 'c9_science' || selectedSubjectId === 'c11_botany')
                   ? (isTa ? 'அலகு:' : 'Unit:')
                   : (isTa ? 'இயல் / அலகு:' : 'Iyal / Unit:')
                 }
@@ -370,12 +370,14 @@ export const SubjectExplorer: React.FC<SubjectExplorerProps> = ({
               >
                 {selectedSubjectId === 'c9_maths'
                   ? (isTa ? 'அனைத்து பாடங்கள்' : 'All Chapters')
-                  : (selectedSubjectId === 'c9_english' || selectedSubjectId === 'c12_english' || selectedSubjectId === 'c9_science')
+                  : (selectedSubjectId === 'c9_english' || selectedSubjectId === 'c12_english' || selectedSubjectId === 'c9_science' || selectedSubjectId === 'c11_botany')
                   ? (isTa ? 'அனைத்து அலகுகள்' : 'All Units')
                   : (isTa ? 'அனைத்து இயல்கள்' : 'All Iyals')
                 }
               </button>
-              {(selectedSubjectId === 'c12_english'
+              {(selectedSubjectId === 'c11_botany'
+                ? ['1', '2', '3', '4', '5']
+                : selectedSubjectId === 'c12_english'
                 ? ['1', '2', '3', '4', '5', '6']
                 : selectedSubjectId === 'c9_english'
                 ? ['1', '2', '3', '4', '5', '6', '7']

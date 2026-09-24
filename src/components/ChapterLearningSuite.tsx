@@ -23,7 +23,13 @@ import {
   ShieldCheck, 
   ExternalLink,
   Info,
-  Maximize2
+  Maximize2,
+  Trophy,
+  Target,
+  ChevronDown,
+  ChevronUp,
+  AlertTriangle,
+  Lightbulb
 } from 'lucide-react';
 import { 
   Language, 
@@ -50,6 +56,7 @@ import { getOrCreateMathChapterSuite } from '../data/class9MathsData';
 import { getOrCreateScienceChapterSuite } from '../data/class9ScienceData';
 import { getOrCreateClass12TamilChapterSuite } from '../data/class12TamilData';
 import { getOrCreateClass12EnglishChapterSuite } from '../data/class12EnglishData';
+import { getOrCreateClass11BotanyChapterSuite } from '../data/class11BotanySuiteData';
 
 interface ChapterLearningSuiteProps {
   lang: Language;
@@ -82,7 +89,16 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
   // Quiz state
   const [userAnswers, setUserAnswers] = useState<Record<string, any>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [earnedScore, setEarnedScore] = useState<number | null>(null);
   const [selectedHotspot, setSelectedHotspot] = useState<string | null>('l1');
+  const [expandedExamQuestions, setExpandedExamQuestions] = useState<Record<string, boolean>>({});
+
+  const toggleExamQuestion = (qId: string) => {
+    setExpandedExamQuestions(prev => ({
+      ...prev,
+      [qId]: !prev[qId]
+    }));
+  };
 
   // Find current chapter or fallback
   const chapter: Chapter = ALL_CHAPTERS.find(c => c.id === chapterId) || ALL_CHAPTERS[0];
@@ -95,7 +111,9 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
   const nextChapter = currentChapterIndex < subjectChapters.length - 1 ? subjectChapters[currentChapterIndex + 1] : null;
 
   // Chapter-specific notes, summaries, and quizzes (prevents wrong fallback to Laws of Motion)
-  const dynamicSuite = chapter.subjectId === 'c9_english'
+  const dynamicSuite = chapter.subjectId === 'c11_botany'
+    ? getOrCreateClass11BotanyChapterSuite(chapter, isTa)
+    : chapter.subjectId === 'c9_english'
     ? getOrCreateEnglishChapterSuite(chapter, isTa)
     : chapter.subjectId === 'c9_maths'
     ? getOrCreateMathChapterSuite(chapter, isTa)
@@ -146,6 +164,7 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
         calculatedScore += 5;
       }
     });
+    setEarnedScore(calculatedScore);
     if (onQuizCompleted) {
       onQuizCompleted(calculatedScore, quiz.totalMarks);
     }
@@ -154,6 +173,7 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
   const handleQuizRetry = () => {
     setUserAnswers({});
     setIsSubmitted(false);
+    setEarnedScore(null);
   };
 
   return (
@@ -363,12 +383,94 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
             </div>
           </div>
 
+          {/* Lesson Overview Box */}
+          {(note.overviewEn || note.learningObjectivesEn || note.whyItMattersEn) && (
+            <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50/70 via-blue-50/50 to-white p-5 flex flex-col gap-4 shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-slate-900">
+                    {isTa ? 'பாட மேலோட்டம் மற்றும் குறிக்கோள்கள்' : 'Lesson Overview & Learning Goals'}
+                  </h3>
+                  <p className="text-[11px] font-semibold text-slate-500">
+                    {isTa ? 'தமிழ்நாடு அரசு தேர்வு வரைவுத் திட்டம்' : 'Tamil Nadu State Board Curriculum Blueprint'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Overview text */}
+              {(note.overviewEn || note.overviewTa) && (
+                <p className="text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
+                  {isTa ? note.overviewTa : note.overviewEn}
+                </p>
+              )}
+
+              {/* What You Will Learn */}
+              {((isTa ? note.learningObjectivesTa : note.learningObjectivesEn) || note.learningObjectivesEn)?.length && (
+                <div className="bg-white/90 rounded-xl p-3.5 border border-indigo-100/80 flex flex-col gap-2">
+                  <h4 className="text-xs font-black text-indigo-900 flex items-center gap-1.5">
+                    <CheckSquare className="w-3.5 h-3.5 text-indigo-600" />
+                    <span>{isTa ? 'நீங்கள் இப்பாடத்தில் கற்பவை:' : 'What You Will Master in This Lesson:'}</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {(isTa ? (note.learningObjectivesTa || note.learningObjectivesEn) : note.learningObjectivesEn)?.map((obj, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs font-medium text-slate-700">
+                        <span className="w-4 h-4 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5">
+                          {i + 1}
+                        </span>
+                        <span>{obj}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Why this topic is important */}
+              {(note.whyItMattersEn || note.whyItMattersTa) && (
+                <div className="flex items-start gap-2 text-xs bg-amber-50/80 border border-amber-200/80 rounded-xl p-3 text-amber-900 font-medium">
+                  <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-black mr-1">{isTa ? 'தேர்வு முக்கியத்துவம்:' : 'Why This Topic Matters:'}</span>
+                    <span>{isTa ? note.whyItMattersTa : note.whyItMattersEn}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Note Body Text */}
           <div className="prose prose-slate max-w-none text-sm text-slate-800 leading-relaxed space-y-4">
             <div className="whitespace-pre-line">
               {isTa ? (note.bodyTa || note.contentTa) : (note.bodyEn || note.contentEn)}
             </div>
           </div>
+
+          {/* Important Terms Glossary */}
+          {note.importantTerms && note.importantTerms.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
+                <span>{isTa ? 'முக்கிய கலைச்சொற்களும் விளக்கங்களும் (Important Terms)' : 'Important Academic Terms & Definitions'}</span>
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {note.importantTerms.map((term, idx) => (
+                  <div key={idx} className="bg-purple-50/40 rounded-2xl p-4 border border-purple-100 flex flex-col gap-1.5 hover:border-purple-200 transition-colors">
+                    <div className="flex items-center justify-between gap-2 border-b border-purple-100/70 pb-1.5">
+                      <span className="text-xs font-black text-purple-900">{isTa ? term.termTa : term.termEn}</span>
+                      <span className="text-[10px] font-bold text-slate-500 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                        {isTa ? term.termEn : term.termTa}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-700 leading-relaxed font-normal">
+                      {isTa ? term.definitionTa : term.definitionEn}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Quick Ask STEMBuddy AI Doubt Solver Box */}
           <div className="bg-gradient-to-r from-purple-50 via-indigo-50 to-blue-50 border border-purple-200/90 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -456,6 +558,76 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
             </div>
           )}
 
+          {/* Exam Preparation Model Questions */}
+          {note.examQuestions && note.examQuestions.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-600"></span>
+                  <span>{isTa ? 'அரசு பொதுத்தேர்வு மாதிரி வினா-விடைகள் (Exam Preparation)' : 'Board Exam Model Questions & Answers'}</span>
+                </h3>
+                <span className="text-xs font-bold text-slate-500">
+                  {note.examQuestions.length} {isTa ? 'மாதிரி வினாக்கள்' : 'Model Questions'}
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-2.5">
+                {note.examQuestions.map((eq, idx) => {
+                  const qId = `eq_${idx}`;
+                  const isExpanded = !!expandedExamQuestions[qId];
+                  const typeLabels: Record<string, { en: string; ta: string; color: string }> = {
+                    vsa: { en: 'Very Short Answer', ta: 'மிகக் குறுகிய விடை', color: 'bg-blue-100 text-blue-800' },
+                    sa: { en: 'Short Answer', ta: 'குறுகிய விடை', color: 'bg-emerald-100 text-emerald-800' },
+                    la: { en: 'Long Answer (5/7 Marks)', ta: 'நெடு வினா (5/7 மதிப்பெண்)', color: 'bg-purple-100 text-purple-800' },
+                    conceptual: { en: 'Conceptual Reasoning', ta: 'கருத்துசார் காரணம் அறிதல்', color: 'bg-amber-100 text-amber-800' },
+                    application: { en: 'Practical Application', ta: 'நடைமுறைப் பயன்பாடு', color: 'bg-cyan-100 text-cyan-800' }
+                  };
+                  const badge = typeLabels[eq.type] || { en: 'Question', ta: 'வினா', color: 'bg-slate-100 text-slate-700' };
+
+                  return (
+                    <div key={idx} className="rounded-2xl border border-slate-200 bg-white shadow-2xs overflow-hidden transition-all">
+                      <button
+                        type="button"
+                        onClick={() => toggleExamQuestion(qId)}
+                        className="w-full text-left p-4 flex items-start justify-between gap-3 hover:bg-slate-50/80 transition-colors cursor-pointer"
+                      >
+                        <div className="flex flex-col gap-1.5 flex-1">
+                          <div className="flex items-center gap-2">
+                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider ${badge.color}`}>
+                              {isTa ? badge.ta : badge.en}
+                            </span>
+                            <span className="text-[11px] font-bold text-slate-500">
+                              {eq.marks} {isTa ? 'மதிப்பெண்' : 'Marks'}
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                            <span className="text-rose-600 font-extrabold mr-1.5">Q{idx + 1}.</span>
+                            {isTa ? eq.questionTa : eq.questionEn}
+                          </p>
+                        </div>
+                        <div className="w-7 h-7 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 mt-0.5 text-slate-600">
+                          {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                        </div>
+                      </button>
+
+                      {isExpanded && (
+                        <div className="p-4 pt-1 border-t border-slate-100 bg-slate-50/60 flex flex-col gap-2">
+                          <div className="flex items-center gap-1.5 text-xs font-black text-emerald-700">
+                            <ShieldCheck className="w-4 h-4" />
+                            <span>{isTa ? 'அரசு தேர்வு மாதிரி விடைக்குறிப்பு (Model Answer):' : 'Official Board Model Answer:'}</span>
+                          </div>
+                          <div className="text-xs text-slate-800 leading-relaxed whitespace-pre-line bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs">
+                            {isTa ? eq.answerTa : eq.answerEn}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Remember Boxes */}
           {note.rememberBoxes && note.rememberBoxes.length > 0 && (
             <div className="flex flex-col gap-2">
@@ -467,6 +639,38 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
                   </p>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Common Mistakes Students Avoid */}
+          {note.commonMistakes && note.commonMistakes.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <span>{isTa ? 'தேர்வில் தவிர்க்க வேண்டிய பொதுவான தவறுகள் (Common Mistakes)' : 'Common Mistakes to Avoid in Board Exams'}</span>
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {note.commonMistakes.map((cm, idx) => (
+                  <div key={idx} className="rounded-2xl border border-amber-200 bg-amber-50/40 p-4 flex flex-col gap-2.5">
+                    <div className="flex items-start gap-2 text-xs">
+                      <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-black text-[10px] uppercase shrink-0 mt-0.5">
+                        {isTa ? 'தவறு' : 'Mistake'}
+                      </span>
+                      <p className="font-semibold text-rose-950 leading-relaxed">
+                        {isTa ? cm.mistakeTa : cm.mistakeEn}
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2 text-xs pt-2 border-t border-amber-200/60">
+                      <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-black text-[10px] uppercase shrink-0 mt-0.5">
+                        {isTa ? 'சரியானது' : 'Correct'}
+                      </span>
+                      <p className="font-medium text-emerald-950 leading-relaxed">
+                        {isTa ? cm.correctionTa : cm.correctionEn}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -550,6 +754,61 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
               </button>
             )}
           </div>
+
+          {/* Submitted Exam Results Score Dashboard */}
+          {isSubmitted && earnedScore !== null && (
+            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-indigo-500/10 via-blue-500/5 to-emerald-500/10 border border-blue-200/80 flex flex-col md:flex-row items-center justify-between gap-5 shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Trophy className="w-7 h-7" />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl sm:text-2xl font-black text-slate-900">
+                      {earnedScore} / {quiz.totalMarks}
+                    </span>
+                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-black uppercase tracking-wider ${
+                      (earnedScore / Math.max(1, quiz.totalMarks)) >= 0.8
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : (earnedScore / Math.max(1, quiz.totalMarks)) >= 0.5
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-amber-100 text-amber-800'
+                    }`}>
+                      {Math.round((earnedScore / Math.max(1, quiz.totalMarks)) * 100)}% {isTa ? 'மதிப்பெண்' : 'Score'}
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-slate-600">
+                    {(earnedScore / Math.max(1, quiz.totalMarks)) >= 0.8
+                      ? (isTa ? '🌟 சிறப்புத் தகுதி! அரசு பொதுத்தேர்வுக்கு நீங்கள் முழுத் தயார்.' : '🌟 Distinction level! You are fully prepared for board exams.')
+                      : (earnedScore / Math.max(1, quiz.totalMarks)) >= 0.5
+                      ? (isTa ? '👍 நன்று! விடைகளின் விளக்கங்களை படித்து முழு மதிப்பெண் பெற முயலவும்.' : '👍 Good attempt! Review detailed explanations below for distinction.')
+                      : (isTa ? '📚 மீண்டும் ஒருமுறை பாடக் குறிப்புகளைப் படித்து பயிற்சி செய்யவும்.' : '📚 Review chapter notes and key takeaways, then retry.')}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div className="text-center px-3 py-1.5 rounded-xl bg-white/80 border border-slate-200">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">{isTa ? 'சரியானவை' : 'Correct'}</p>
+                  <p className="text-sm font-black text-emerald-600">
+                    {quiz.questions.filter(q => {
+                      const userAns = userAnswers[q.id];
+                      const correctVal = q.correctAnswer !== undefined ? q.correctAnswer : (q.optionsEn && q.correctAnswerIndex !== undefined ? q.optionsEn[q.correctAnswerIndex] : '');
+                      return String(userAns).trim().toLowerCase() === String(correctVal).trim().toLowerCase();
+                    }).length} / {quiz.questions.length}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleQuizRetry}
+                  className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>{isTa ? 'மீண்டும் செய்' : 'Try Again'}</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Quiz Questions */}
           <div className="flex flex-col gap-6">

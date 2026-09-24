@@ -223,6 +223,24 @@ import {
   CLASS_11_PHY_VIDEOS
 } from "./class11PhysicsData";
 import {
+  CLASS_11_BOTANY_CHAPTERS,
+  CLASS_11_BOTANY_NOTES,
+  CLASS_11_BOTANY_SUMMARIES,
+  CLASS_11_BOTANY_QUIZZES,
+  CLASS_11_BOTANY_DIAGRAMS,
+  CLASS_11_BOTANY_VIDEOS
+} from "./class11BotanySuiteData";
+import {
+  CLASS_12_PHYSICS_NOTES,
+  CLASS_12_PHYSICS_SUMMARIES,
+  CLASS_12_PHYSICS_QUIZZES
+} from "./class12PhysicsSuiteData";
+import {
+  enrichChapterNotes,
+  enrichChapterSummary,
+  enrichChapterQuiz
+} from "./curriculumEnrichment";
+import {
   CLASS_11_ECO_PART2_CHAPTERS,
   CLASS_11_ECO_PART2_NOTES,
   CLASS_11_ECO_PART2_SUMMARIES,
@@ -296,14 +314,14 @@ export const TN_GROUPS: GroupStream[] = [
     nameEn: 'Maths, Physics, Chemistry, Biology',
     nameTa: 'கணிதம், இயற்பியல், வேதியியல், உயிரியல்',
     stream: 'Science',
-    subjectIds: ['tamil', 'english', 'physics', 'chemistry', 'maths', 'biology']
+    subjectIds: ['tamil', 'english', 'physics', 'chemistry', 'maths', 'biology', 'botany', 'zoology']
   },
   {
     code: '2601',
     nameEn: 'Physics, Chemistry, Biology, Computer Science',
     nameTa: 'இயற்பியல், வேதியியல், உயிரியல், கணினி அறிவியல்',
     stream: 'Science',
-    subjectIds: ['tamil', 'english', 'physics', 'chemistry', 'biology', 'cs']
+    subjectIds: ['tamil', 'english', 'physics', 'chemistry', 'biology', 'botany', 'zoology', 'cs']
   },
   {
     code: '2608',
@@ -883,7 +901,8 @@ export const ALL_CHAPTERS: Chapter[] = [
   ...CLASS_11_COM_CHAPTERS,
   ...CLASS_11_HIS_CHAPTERS,
   ...CLASS_11_BMATH_CHAPTERS,
-  ...CLASS_11_PHY_CHAPTERS
+  ...CLASS_11_PHY_CHAPTERS,
+  ...CLASS_11_BOTANY_CHAPTERS
 ];
 
 // Rich Sample Notes with exact required dates and reviewer signatures (Section 5.1)
@@ -917,6 +936,8 @@ export const CHAPTER_NOTES: Record<string, NoteItem> = {
   ...CLASS_11_HIS_NOTES,
   ...CLASS_11_BMATH_NOTES,
   ...CLASS_11_PHY_NOTES,
+  ...CLASS_11_BOTANY_NOTES,
+  ...CLASS_12_PHYSICS_NOTES,
   ...CLASS_10_TAMIL_NOTES,
   ...CLASS_10_ENGLISH_NOTES,
   ...CLASS_10_MATHS_NOTES,
@@ -1136,6 +1157,8 @@ export const CHAPTER_SUMMARIES: Record<string, SummaryItem> = {
   ...CLASS_11_HIS_SUMMARIES,
   ...CLASS_11_BMATH_SUMMARIES,
   ...CLASS_11_PHY_SUMMARIES,
+  ...CLASS_11_BOTANY_SUMMARIES,
+  ...CLASS_12_PHYSICS_SUMMARIES,
   ...CLASS_10_TAMIL_SUMMARIES,
   ...CLASS_10_ENGLISH_SUMMARIES,
   ...CLASS_10_MATHS_SUMMARIES,
@@ -1196,6 +1219,8 @@ export const CHAPTER_QUIZZES: Record<string, ChapterQuiz> = {
   ...CLASS_11_HIS_QUIZZES,
   ...CLASS_11_BMATH_QUIZZES,
   ...CLASS_11_PHY_QUIZZES,
+  ...CLASS_11_BOTANY_QUIZZES,
+  ...CLASS_12_PHYSICS_QUIZZES,
   ...CLASS_10_TAMIL_QUIZZES,
   ...CLASS_10_ENGLISH_QUIZZES,
   ...CLASS_10_MATHS_QUIZZES,
@@ -1290,6 +1315,7 @@ export const CHAPTER_DIAGRAMS: Record<string, SchematicDiagram> = {
   ...CLASS_11_HIS_DIAGRAMS,
   ...CLASS_11_BMATH_DIAGRAMS,
   ...CLASS_11_PHY_DIAGRAMS,
+  ...CLASS_11_BOTANY_DIAGRAMS,
   ...CLASS_10_TAMIL_DIAGRAMS,
   ...CLASS_10_ENGLISH_DIAGRAMS,
   ...CLASS_10_MATHS_DIAGRAMS,
@@ -1328,9 +1354,20 @@ export const CHAPTER_VIDEOS: Record<string, VideoExplainer> = {
   ...CLASS_11_HIS_VIDEOS,
   ...CLASS_11_BMATH_VIDEOS,
   ...CLASS_11_PHY_VIDEOS,
+  ...CLASS_11_BOTANY_VIDEOS,
   ...CLASS_10_TAMIL_VIDEOS,
   ...CLASS_10_ENGLISH_VIDEOS,
   ...CLASS_10_MATHS_VIDEOS,
   ...CLASS_10_SCIENCE_VIDEOS,
   ...CLASS_10_SOCIAL_VIDEOS
 };
+
+// ================= UNIVERSAL CURRICULUM ENRICHMENT =================
+// Guarantees comprehensive multi-section study notes, high-yield 6-8 bullet summaries,
+// "Explain Simply Mode" analogies, and at least 5-6 bilingual board-style quiz questions
+// for ALL 597 chapters across ALL 35 subjects in Classes 9, 10, 11, and 12.
+ALL_CHAPTERS.forEach(ch => {
+  CHAPTER_NOTES[ch.id] = enrichChapterNotes(ch, CHAPTER_NOTES[ch.id]);
+  CHAPTER_SUMMARIES[ch.id] = enrichChapterSummary(ch, CHAPTER_SUMMARIES[ch.id]);
+  CHAPTER_QUIZZES[ch.id] = enrichChapterQuiz(ch, CHAPTER_QUIZZES[ch.id]);
+});

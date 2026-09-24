@@ -1,4 +1,5 @@
 import { Chapter, NoteItem, SummaryItem, ChapterQuiz, SchematicDiagram, VideoExplainer } from '../types';
+import { PILOT_C10_SCI_U1_NOTE, PILOT_C10_SCI_U1_SUMMARY, PILOT_C10_SCI_U1_QUIZ } from './pilotClass10LawsOfMotion';
 
 /**
  * Complete Tamil Nadu Samacheer Kalvi Class 10 Science Master Dataset (Units 1 to 23)
@@ -424,51 +425,7 @@ export const CLASS_10_SCIENCE_CHAPTERS: Chapter[] = [
 ];
 
 export const CLASS_10_SCIENCE_NOTES: Record<string, NoteItem> = {
-  "c10_sci_u1": {
-    "id": "note_c10_sci_u1",
-    "chapterId": "c10_sci_u1",
-    "classLevel": 10,
-    "subjectId": "c10_science",
-    "titleEn": "Board Revision Notes: Unit 1 - Laws of Motion",
-    "titleTa": "தேர்வு திருப்புதல் குறிப்புகள்: அலகு 1 - இயக்க விதிகள்",
-    "publishedAt": "23 Sep 2026",
-    "publishedAtTa": "23 செப் 2026",
-    "updatedAt": "23 Sep 2026",
-    "updatedAtTa": "23 செப் 2026",
-    "syllabusYear": "Samacheer Kalvi 2026–27",
-    "syllabusYearTa": "சமச்சீர் கல்வி 2026–27",
-    "reviewedBy": "TN SCERT Science Faculty",
-    "reviewedByRole": "Senior Science Academic Specialist",
-    "reviewedAt": "23 Sep 2026",
-    "reviewedAtTa": "23 செப் 2026",
-    "status": "published",
-    "version": "2.0.0",
-    "changeNote": "Comprehensive bilingual theory, experimental setups, definitions, and board diagrams.",
-    "changeNoteTa": "முழுமையான இருமொழி அறிவியல் கொள்கைகள், சோதனைகள் மற்றும் வரைபடங்கள்.",
-    "readTimeMinutes": 14,
-    "bodyEn": "### 1. Fundamental Overview\nForce, inertia, and momentum govern physical motion via Newton's three laws and universal gravitation.\n\n### 2. Key Board Concepts\n- **Point 1:** Inertia is the inherent resistance of a body to alter its state of rest or motion (rest, motion, direction).\n- **Point 2:** Newton's Second Law: Force F = ma; rate of change of momentum is proportional to impressed force.\n- **Point 3:** Newton's Third Law: Every action has an equal and opposite reaction (F_A = -F_B).\n- **Point 4:** Law of Conservation of Linear Momentum: Total initial momentum equals total final momentum (m1u1 + m2u2 = m1v1 + m2v2).\n- **Point 5:** Universal Gravitation: F = G(m1*m2)/r^2; acceleration due to gravity g = GM/R^2 is maximum at poles.\n\n### 3. Exam Importance\nThis unit is a regular source of 2-mark and 5-mark questions in the Tamil Nadu SSLC Public Examination.",
-    "bodyTa": "### 1. பாட அறிமுகம்\nவிசை, நிலைமம் மற்றும் உந்தம் ஆகியவை நியூட்டனின் இயக்க விதிகள் மற்றும் ஈர்ப்பியல் விதி மூலம் இயக்கத்தை ஆளுகின்றன.\n\n### 2. முக்கிய பாடக் கருத்துகள்\n- **கருத்து 1:** நிலைமம் என்பது ஒரு பொருளின் ஓய்வு அல்லது இயக்க நிலையை மாற்ற மறுக்கும் இயற்கை பண்பு.\n- **கருத்து 2:** நியூட்டனின் இரண்டாம் விதி: விசை F = ma; உந்த மாறுபாட்டு வீதம் விசைக்கு நேர்தகவில் அமையும்.\n- **கருத்து 3:** நியூட்டனின் மூன்றாம் விதி: ஒவ்வொரு விசைக்கும் சமமான மற்றும் எதிர் திசையிலான எதிர்விசை உண்டு.\n- **கருத்து 4:** நேர்க்கோட்டு உந்த மாறாக் கோட்பாடு: புறவிசை செயல்படாத வரை மோதலுக்கு முன் உள்ள உந்தம் மோதலுக்கு பின் உள்ள உந்தத்திற்கு சமம்.\n- **கருத்து 5:** நியூட்டனின் ஈர்ப்பியல் விதி: F = G(m1*m2)/r^2; புவியீர்ப்பு முடுக்கம் g = GM/R^2 துருவங்களில் அதிகம்.\n\n### 3. தேர்வு முக்கியத்துவம்\nஇப்பாடம் தமிழ்நாடு 10-ஆம் வகுப்பு அரசு பொதுத்தேர்வில் கேட்கப்படும் மிக முக்கியமான வினாக்களைக் கொண்டுள்ளது.",
-    "rememberBoxes": [
-      {
-        "tipEn": "Board Exam Drawing Tip: Always use a sharp pencil for neat ray diagrams, cross-sections, and organ sketches with clear labeled arrows.",
-        "tipTa": "வரைபட உதவிக்குறிப்பு: அறிவியல் தேர்வில் கதிர் வரைபடங்கள், உள்ளமைப்பு மற்றும் உறுப்பு வரைபடங்களை கூர்மையான பென்சிலால் பாகங்களைக் குறித்து வரையவும்."
-      },
-      {
-        "tipEn": "Formula & Units: State equations with proper SI units (e.g., N, J, W, D, Ω, mol) to secure full step marks.",
-        "tipTa": "அளவீட்டு அலகுகள்: கணக்கீடுகளில் சரியான SI அலகுகளைக் குறிப்பிடுவதன் மூலம் முழு மதிப்பெண்களைப் பெறலாம்."
-      }
-    ],
-    "revisions": [
-      {
-        "version": "2.0.0",
-        "updatedAt": "23 Sep 2026",
-        "updatedAtTa": "23 செப் 2026",
-        "updatedBy": "TN Science Curriculum Panel",
-        "changeNote": "Fully aligned to Tamil Nadu Class 10 Public Examination blueprint.",
-        "changeNoteTa": "10-ஆம் வகுப்பு அறிவியல் பொதுத்தேர்வு வினாத்தாள் அமைப்பின்படி வடிவமைக்கப்பட்டது."
-      }
-    ]
-  },
+  "c10_sci_u1": PILOT_C10_SCI_U1_NOTE,
   "c10_sci_u2": {
     "id": "note_c10_sci_u2",
     "chapterId": "c10_sci_u2",
@@ -1462,28 +1419,7 @@ export const CLASS_10_SCIENCE_NOTES: Record<string, NoteItem> = {
 };
 
 export const CLASS_10_SCIENCE_SUMMARIES: Record<string, SummaryItem> = {
-  "c10_sci_u1": {
-    "id": "sum_c10_sci_u1",
-    "chapterId": "c10_sci_u1",
-    "lastUpdatedAt": "23 Sep 2026",
-    "lastUpdatedAtTa": "23 செப் 2026",
-    "keyPointsEn": [
-      "Inertia is the inherent resistance of a body to alter its state of rest or motion (rest, motion, direction).",
-      "Newton's Second Law: Force F = ma; rate of change of momentum is proportional to impressed force.",
-      "Newton's Third Law: Every action has an equal and opposite reaction (F_A = -F_B).",
-      "Law of Conservation of Linear Momentum: Total initial momentum equals total final momentum (m1u1 + m2u2 = m1v1 + m2v2).",
-      "Universal Gravitation: F = G(m1*m2)/r^2; acceleration due to gravity g = GM/R^2 is maximum at poles."
-    ],
-    "keyPointsTa": [
-      "நிலைமம் என்பது ஒரு பொருளின் ஓய்வு அல்லது இயக்க நிலையை மாற்ற மறுக்கும் இயற்கை பண்பு.",
-      "நியூட்டனின் இரண்டாம் விதி: விசை F = ma; உந்த மாறுபாட்டு வீதம் விசைக்கு நேர்தகவில் அமையும்.",
-      "நியூட்டனின் மூன்றாம் விதி: ஒவ்வொரு விசைக்கும் சமமான மற்றும் எதிர் திசையிலான எதிர்விசை உண்டு.",
-      "நேர்க்கோட்டு உந்த மாறாக் கோட்பாடு: புறவிசை செயல்படாத வரை மோதலுக்கு முன் உள்ள உந்தம் மோதலுக்கு பின் உள்ள உந்தத்திற்கு சமம்.",
-      "நியூட்டனின் ஈர்ப்பியல் விதி: F = G(m1*m2)/r^2; புவியீர்ப்பு முடுக்கம் g = GM/R^2 துருவங்களில் அதிகம்."
-    ],
-    "simpleExplanationEn": "Force, inertia, and momentum govern physical motion via Newton's three laws and universal gravitation.",
-    "simpleExplanationTa": "விசை, நிலைமம் மற்றும் உந்தம் ஆகியவை நியூட்டனின் இயக்க விதிகள் மற்றும் ஈர்ப்பியல் விதி மூலம் இயக்கத்தை ஆளுகின்றன."
-  },
+  "c10_sci_u1": PILOT_C10_SCI_U1_SUMMARY,
   "c10_sci_u2": {
     "id": "sum_c10_sci_u2",
     "chapterId": "c10_sci_u2",
@@ -1971,104 +1907,7 @@ export const CLASS_10_SCIENCE_SUMMARIES: Record<string, SummaryItem> = {
 };
 
 export const CLASS_10_SCIENCE_QUIZZES: Record<string, ChapterQuiz> = {
-  "c10_sci_u1": {
-    "id": "quiz_c10_sci_u1",
-    "chapterId": "c10_sci_u1",
-    "titleEn": "Board Mastery Quiz: Unit 1 - Laws of Motion",
-    "titleTa": "அலகுத் தேர்வு வினாடி வினா: அலகு 1 - இயக்க விதிகள்",
-    "totalMarks": 20,
-    "timeLimitMinutes": 10,
-    "questions": [
-      {
-        "id": "q_c10_sci_u1_1",
-        "questionEn": "Which law of motion provides the quantitative formula for Force (F = ma)?",
-        "questionTa": "விசையின் அளவீட்டுச் சூத்திரத்தை (F = ma) தரும் நியூட்டனின் இயக்க விதி எது?",
-        "optionsEn": [
-          "First Law",
-          "Second Law",
-          "Third Law",
-          "Gravitation Law"
-        ],
-        "optionsTa": [
-          "முதல் விதி",
-          "இரண்டாம் விதி",
-          "மூன்றாம் விதி",
-          "ஈர்ப்பியல் விதி"
-        ],
-        "correctAnswer": "Second Law",
-        "correctAnswerIndex": 1,
-        "explanationEn": "Newton's 2nd law defines force as the product of mass and acceleration (F = ma).",
-        "explanationTa": "நியூட்டனின் 2-ஆம் விதி விசையை நிறை மற்றும் முடுக்கத்தின் பெருக்கற்பலனாக (F = ma) வரையறுக்கிறது.",
-        "difficulty": "medium"
-      },
-      {
-        "id": "q_c10_sci_u1_2",
-        "questionEn": "According to Tamil Nadu board guidelines, which statement regarding Laws of Motion is accurate?",
-        "questionTa": "இயக்க விதிகள் பாடத்தில் கூறப்பட்டுள்ள சரியான அறிவியல் கருத்து எது?",
-        "optionsEn": [
-          "Inertia is the inherent resistance of a body to alter its state of rest or motion (rest, motion, direction).",
-          "Opposite of natural law",
-          "Undefined concept",
-          "Inapplicable in vacuum"
-        ],
-        "optionsTa": [
-          "நிலைமம் என்பது ஒரு பொருளின் ஓய்வு அல்லது இயக்க நிலையை மாற்ற மறுக்கும் இயற்கை பண்பு.",
-          "இயற்கை விதிக்கு எதிரானது",
-          "வரையறுக்கப்படாத கருத்து",
-          "வெற்றிடத்தில் செயல்படாது"
-        ],
-        "correctAnswer": "Inertia is the inherent resistance of a body to alter its state of rest or motion (rest, motion, direction).",
-        "correctAnswerIndex": 0,
-        "explanationEn": "Directly based on core syllabus: Inertia is the inherent resistance of a body to alter its state of rest or motion (rest, motion, direction).",
-        "explanationTa": "பாடத்திட்டத்தின் நேரடி கருத்து: நிலைமம் என்பது ஒரு பொருளின் ஓய்வு அல்லது இயக்க நிலையை மாற்ற மறுக்கும் இயற்கை பண்பு.",
-        "difficulty": "easy"
-      },
-      {
-        "id": "q_c10_sci_u1_3",
-        "questionEn": "In Laws of Motion, what is the fundamental working principle?",
-        "questionTa": "இயக்க விதிகள் பாடத்தின் அடிப்படை செயல்பாட்டுக் கொள்கை என்ன?",
-        "optionsEn": [
-          "Newton's Second Law: Force F = ma; rate of change of momentum is proportional to impressed force.",
-          "Random motion only",
-          "Variable resistance",
-          "Zero conservation"
-        ],
-        "optionsTa": [
-          "நியூட்டனின் இரண்டாம் விதி: விசை F = ma; உந்த மாறுபாட்டு வீதம் விசைக்கு நேர்தகவில் அமையும்.",
-          "ஒழுங்கற்ற இயக்கம் மட்டுமே",
-          "மாறும் மின்தடை",
-          "பூச்சிய பாதுகாப்பு"
-        ],
-        "correctAnswer": "Newton's Second Law: Force F = ma; rate of change of momentum is proportional to impressed force.",
-        "correctAnswerIndex": 0,
-        "explanationEn": "Key mechanism: Newton's Second Law: Force F = ma; rate of change of momentum is proportional to impressed force.",
-        "explanationTa": "முக்கிய செயல்பாடு: நியூட்டனின் இரண்டாம் விதி: விசை F = ma; உந்த மாறுபாட்டு வீதம் விசைக்கு நேர்தகவில் அமையும்.",
-        "difficulty": "medium"
-      },
-      {
-        "id": "q_c10_sci_u1_4",
-        "questionEn": "What is a critical application or outcome studied in Laws of Motion?",
-        "questionTa": "இயக்க விதிகள் பாடத்தில் பயிலப்படும் முக்கிய நடைமுறைப் பயன்பாடு அல்லது விளைவு எது?",
-        "optionsEn": [
-          "Law of Conservation of Linear Momentum: Total initial momentum equals total final momentum (m1u1 + m2u2 = m1v1 + m2v2).",
-          "Complete destruction of matter",
-          "Infinite velocity",
-          "Instant disappearance"
-        ],
-        "optionsTa": [
-          "நேர்க்கோட்டு உந்த மாறாக் கோட்பாடு: புறவிசை செயல்படாத வரை மோதலுக்கு முன் உள்ள உந்தம் மோதலுக்கு பின் உள்ள உந்தத்திற்கு சமம்.",
-          "பருப்பொருளின் முழு அழிவு",
-          "முடிவிலா வேகம்",
-          "உடனடி மறைதல்"
-        ],
-        "correctAnswer": "Law of Conservation of Linear Momentum: Total initial momentum equals total final momentum (m1u1 + m2u2 = m1v1 + m2v2).",
-        "correctAnswerIndex": 0,
-        "explanationEn": "Scientific application: Law of Conservation of Linear Momentum: Total initial momentum equals total final momentum (m1u1 + m2u2 = m1v1 + m2v2).",
-        "explanationTa": "அறிவியல் பயன்பாடு: நேர்க்கோட்டு உந்த மாறாக் கோட்பாடு: புறவிசை செயல்படாத வரை மோதலுக்கு முன் உள்ள உந்தம் மோதலுக்கு பின் உள்ள உந்தத்திற்கு சமம்.",
-        "difficulty": "hard"
-      }
-    ]
-  },
+  "c10_sci_u1": PILOT_C10_SCI_U1_QUIZ,
   "c10_sci_u2": {
     "id": "quiz_c10_sci_u2",
     "chapterId": "c10_sci_u2",

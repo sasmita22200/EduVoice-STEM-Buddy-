@@ -14,11 +14,11 @@ const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '10mb' }));
 
-// Initialize Google GenAI SDK if API key is present
-const apiKey = process.env.GEMINI_API_KEY;
-let ai: GoogleGenAI | null = null;
-if (apiKey) {
-  ai = new GoogleGenAI({
+// Initialize Google GenAI SDK helper
+function getGenAIClient(): GoogleGenAI | null {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+  return new GoogleGenAI({
     apiKey,
     httpOptions: {
       headers: {
@@ -26,6 +26,52 @@ if (apiKey) {
       },
     },
   });
+}
+
+// Generate content with resilient fallback across models (gemini-3.8-flash -> gemini-3.1-flash-lite -> gemini-flash-latest)
+async function generateContentWithFallback(
+  ai: GoogleGenAI,
+  prompt: string,
+  systemInstruction: string
+): Promise<{ text: string; modelUsed: string }> {
+  // Allowed models from gemini-api skill
+  const candidateModels = [
+    'gemini-3.8-flash',
+    'gemini-3.1-flash-lite',
+    'gemini-flash-latest'
+  ];
+
+  let lastError: any = null;
+
+  for (const model of candidateModels) {
+    try {
+      const response = await ai.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          systemInstruction,
+          temperature: 0.7,
+        },
+      });
+
+      if (response && response.text) {
+        return {
+          text: response.text,
+          modelUsed: model,
+        };
+      }
+    } catch (err: any) {
+      lastError = err;
+      const isCapacityError = err?.status === 503 || err?.code === 503 || err?.message?.includes('high demand') || err?.message?.includes('503');
+      const isRateLimit = err?.status === 429 || err?.code === 429 || err?.message?.includes('RESOURCE_EXHAUSTED');
+      console.warn(`STEMBuddy model "${model}" temporarily unavailable (${isCapacityError ? '503 High Demand' : isRateLimit ? '429 Rate Limit' : err?.message || 'Error'}). Trying candidate model...`);
+      
+      // Brief pause before trying next candidate model
+      await new Promise(resolve => setTimeout(resolve, 350));
+    }
+  }
+
+  throw lastError || new Error('All candidate Gemini models were temporarily unavailable');
 }
 
 // POST /api/chat/stembuddy - Doubt clearing endpoint for Classes 9 to 12
@@ -46,10 +92,11 @@ app.post('/api/chat/stembuddy', async (req, res) => {
     }
 
     const isTamil = language === 'ta';
+    const ai = getGenAIClient();
 
     if (!ai) {
       // Return flag indicating AI key not configured on server so client RAG fallback handles gracefully
-      return res.status(503).json({
+      return res.json({
         fallback: true,
         message: 'Gemini AI not initialized on server, using internal RAG corpus.'
       });
@@ -87,27 +134,30 @@ Rules for Answering Doubts:
 
     const prompt = `Student Question: "${query}"\n\nPlease answer this doubt clearly and instantly for a Class ${classLevel} student studying ${subjectName}.`;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents: prompt,
-      config: {
-        systemInstruction,
-        temperature: 0.7,
-      },
-    });
+    try {
+      const { text: replyText, modelUsed } = await generateContentWithFallback(ai, prompt, systemInstruction);
 
-    const replyText = response.text || '';
-
-    return res.json({
-      answer: replyText,
-      modelUsed: 'gemini-3.8-flash',
-      classLevel,
-      subjectName,
-      chapterTitle
-    });
+      return res.json({
+        answer: replyText,
+        modelUsed,
+        classLevel,
+        subjectName,
+        chapterTitle
+      });
+    } catch (genError: any) {
+      console.warn('Gemini AI generation temporarily unavailable due to demand:', genError?.message || genError);
+      // Gracefully signal fallback so client RAG corpus answers without disruption
+      return res.json({
+        fallback: true,
+        error: genError?.message || 'High model demand, switching to local RAG knowledge bank',
+        classLevel,
+        subjectName,
+        chapterTitle
+      });
+    }
   } catch (error: any) {
-    console.error('Error generating STEMBuddy response:', error);
-    return res.status(500).json({
+    console.warn('STEMBuddy route unexpected error, falling back:', error?.message || error);
+    return res.json({
       fallback: true,
       error: error.message || 'Internal AI Error'
     });

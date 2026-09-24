@@ -332,10 +332,17 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {activeSubjects.map((sub, idx) => {
             const completion = idx === 0 ? 80 : idx === 1 ? 60 : idx === 3 ? 75 : 40;
+            const firstChapter = ALL_CHAPTERS.find(c => c.subjectId === sub.id);
             return (
               <div
                 key={sub.id}
-                onClick={() => onOpenChapter(sub.id === 'c10_science' ? 'c10_sci_u1' : 'c10_sci_u1')}
+                onClick={() => {
+                  if (firstChapter) {
+                    onOpenChapter(firstChapter.id);
+                  } else {
+                    onOpenSubjects();
+                  }
+                }}
                 className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-300 transition-all flex flex-col justify-between gap-3 cursor-pointer group"
               >
                 <div className="flex items-start justify-between gap-2">
@@ -369,7 +376,9 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-100 text-slate-500">
-                  <span className="font-semibold">{isTa ? 'அடுத்த பாடம்: இயக்க விதிகள்' : 'Next: Laws of Motion'}</span>
+                  <span className="font-semibold truncate max-w-[200px]">
+                    {firstChapter ? `${isTa ? 'தொடங்குக:' : 'Start:'} ${isTa ? firstChapter.titleTa : firstChapter.titleEn}` : (isTa ? 'பாடங்களைப் பார்க்க' : 'View Chapters')}
+                  </span>
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
