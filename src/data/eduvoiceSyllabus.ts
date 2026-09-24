@@ -207,6 +207,22 @@ import {
   CLASS_11_HIS_VIDEOS
 } from "./class11HistoryData";
 import {
+  CLASS_11_BMATH_CHAPTERS,
+  CLASS_11_BMATH_NOTES,
+  CLASS_11_BMATH_SUMMARIES,
+  CLASS_11_BMATH_QUIZZES,
+  CLASS_11_BMATH_DIAGRAMS,
+  CLASS_11_BMATH_VIDEOS
+} from "./class11BusinessMathsData";
+import {
+  CLASS_11_PHY_CHAPTERS,
+  CLASS_11_PHY_NOTES,
+  CLASS_11_PHY_SUMMARIES,
+  CLASS_11_PHY_QUIZZES,
+  CLASS_11_PHY_DIAGRAMS,
+  CLASS_11_PHY_VIDEOS
+} from "./class11PhysicsData";
+import {
   CLASS_11_ECO_PART2_CHAPTERS,
   CLASS_11_ECO_PART2_NOTES,
   CLASS_11_ECO_PART2_SUMMARIES,
@@ -493,7 +509,7 @@ export const SUBJECT_METADATA: SubjectMetadata[] = [
     nameTa: 'இயற்பியல்',
     part: 'Part III',
     totalChapters: 11,
-    status: 'from_upload',
+    status: 'verified',
     themeColor: 'from-sky-600 to-cyan-700',
     iconName: 'Atom',
     textbookUrl: 'https://www.tnschools.gov.in/textbooks'
@@ -612,9 +628,9 @@ export const SUBJECT_METADATA: SubjectMetadata[] = [
     nameEn: 'Business Maths & Stats',
     nameTa: 'வணிகக் கணிதம் மற்றும் புள்ளியியல்',
     part: 'Part III',
-    totalChapters: 0,
-    status: 'needs_source',
-    themeColor: 'from-zinc-600 to-slate-700',
+    totalChapters: 10,
+    status: 'verified',
+    themeColor: 'from-amber-600 to-orange-700',
     iconName: 'Calculator',
     textbookUrl: 'https://www.tnschools.gov.in/textbooks'
   },
@@ -865,7 +881,9 @@ export const ALL_CHAPTERS: Chapter[] = [
   ...CLASS_11_ECO_PART2_CHAPTERS,
   ...CLASS_11_ACC_CHAPTERS,
   ...CLASS_11_COM_CHAPTERS,
-  ...CLASS_11_HIS_CHAPTERS
+  ...CLASS_11_HIS_CHAPTERS,
+  ...CLASS_11_BMATH_CHAPTERS,
+  ...CLASS_11_PHY_CHAPTERS
 ];
 
 // Rich Sample Notes with exact required dates and reviewer signatures (Section 5.1)
@@ -897,6 +915,8 @@ export const CHAPTER_NOTES: Record<string, NoteItem> = {
   ...CLASS_11_ACC_NOTES,
   ...CLASS_11_COM_NOTES,
   ...CLASS_11_HIS_NOTES,
+  ...CLASS_11_BMATH_NOTES,
+  ...CLASS_11_PHY_NOTES,
   ...CLASS_10_TAMIL_NOTES,
   ...CLASS_10_ENGLISH_NOTES,
   ...CLASS_10_MATHS_NOTES,
@@ -1114,6 +1134,8 @@ export const CHAPTER_SUMMARIES: Record<string, SummaryItem> = {
   ...CLASS_11_ACC_SUMMARIES,
   ...CLASS_11_COM_SUMMARIES,
   ...CLASS_11_HIS_SUMMARIES,
+  ...CLASS_11_BMATH_SUMMARIES,
+  ...CLASS_11_PHY_SUMMARIES,
   ...CLASS_10_TAMIL_SUMMARIES,
   ...CLASS_10_ENGLISH_SUMMARIES,
   ...CLASS_10_MATHS_SUMMARIES,
@@ -1172,6 +1194,8 @@ export const CHAPTER_QUIZZES: Record<string, ChapterQuiz> = {
   ...CLASS_11_ACC_QUIZZES,
   ...CLASS_11_COM_QUIZZES,
   ...CLASS_11_HIS_QUIZZES,
+  ...CLASS_11_BMATH_QUIZZES,
+  ...CLASS_11_PHY_QUIZZES,
   ...CLASS_10_TAMIL_QUIZZES,
   ...CLASS_10_ENGLISH_QUIZZES,
   ...CLASS_10_MATHS_QUIZZES,
@@ -1264,6 +1288,8 @@ export const CHAPTER_DIAGRAMS: Record<string, SchematicDiagram> = {
   ...CLASS_11_ACC_DIAGRAMS,
   ...CLASS_11_COM_DIAGRAMS,
   ...CLASS_11_HIS_DIAGRAMS,
+  ...CLASS_11_BMATH_DIAGRAMS,
+  ...CLASS_11_PHY_DIAGRAMS,
   ...CLASS_10_TAMIL_DIAGRAMS,
   ...CLASS_10_ENGLISH_DIAGRAMS,
   ...CLASS_10_MATHS_DIAGRAMS,
@@ -1300,6 +1326,8 @@ export const CHAPTER_VIDEOS: Record<string, VideoExplainer> = {
   ...CLASS_11_ACC_VIDEOS,
   ...CLASS_11_COM_VIDEOS,
   ...CLASS_11_HIS_VIDEOS,
+  ...CLASS_11_BMATH_VIDEOS,
+  ...CLASS_11_PHY_VIDEOS,
   ...CLASS_10_TAMIL_VIDEOS,
   ...CLASS_10_ENGLISH_VIDEOS,
   ...CLASS_10_MATHS_VIDEOS,

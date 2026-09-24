@@ -10,6 +10,7 @@ import {
   ChevronRight, 
   Sparkles,
   ExternalLink,
+  Bot,
   Atom,
   Languages,
   Calculator,
@@ -149,6 +150,42 @@ export const SubjectExplorer: React.FC<SubjectExplorerProps> = ({
             {isTa ? `வகுப்பு ${cls}` : `Class ${cls}`}
           </button>
         ))}
+      </div>
+
+      {/* STEMBuddy AI Doubt Training Hub Banner */}
+      <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white rounded-3xl p-4 sm:p-5 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shrink-0">
+            <Bot className="w-7 h-7 text-cyan-300 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-black text-sm sm:text-base text-white">
+                STEMBuddy AI Tutor: {isTa ? `வகுப்பு ${selectedClass} உடனடி சந்தேகத் தீர்வு` : `Class ${selectedClass} Instant Doubts Solver`}
+              </h3>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-400/30 text-emerald-200 text-[10px] font-bold border border-emerald-300/40">
+                Trained 9–12
+              </span>
+            </div>
+            <p className="text-xs text-blue-100 mt-0.5 max-w-xl">
+              {isTa 
+                ? `வகுப்பு ${selectedClass} கணிதம், அறிவியல், இயற்பியல், வேதியியல், உயிரியல், கணினி, மற்றும் மொழிப்பாடங்களின் சூத்திரங்கள், தேற்றங்கள், 5 மதிப்பெண் வினாக்களுக்கு உடனுக்குடன் தீர்வு பெறுக.`
+                : `Instant syllabus-grounded answers for Class ${selectedClass} Mathematics, Science, Physics, Chemistry, Biology, CS & Commerce with formulas, diagrams, and board exam tips.`}
+            </p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            const btn = document.getElementById('stembuddy-trigger-btn');
+            if (btn) btn.click();
+          }}
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-white text-blue-900 hover:bg-cyan-50 font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer"
+        >
+          <Sparkles className="w-4 h-4 text-purple-600" />
+          <span>{isTa ? 'சந்தேகம் கேட்கவும் (Ask Doubt)' : 'Ask AI Doubt Now'}</span>
+        </button>
       </div>
 
       {/* Stream / Group Picker for Class 11 & 12 (Section 4) */}

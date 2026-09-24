@@ -370,6 +370,36 @@ export const ChapterLearningSuite: React.FC<ChapterLearningSuiteProps> = ({
             </div>
           </div>
 
+          {/* Quick Ask STEMBuddy AI Doubt Solver Box */}
+          <div className="bg-gradient-to-r from-purple-50 via-indigo-50 to-blue-50 border border-purple-200/90 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                <Bot className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-black text-xs sm:text-sm text-purple-950">
+                  {isTa ? 'இப்பாடத்தில் ஏதேனும் சந்தேகம் உள்ளதா?' : 'Have a doubt in this chapter?'}
+                </h4>
+                <p className="text-[11px] text-purple-800">
+                  {isTa 
+                    ? 'STEMBuddy AI ஆசிரியர் உடனுக்குடன் தீர்வு வழங்குவார் (வகுப்புகள் 9–12).'
+                    : 'STEMBuddy AI answers your doubts instantly with formulas & derivations.'}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                const btn = document.getElementById('stembuddy-trigger-btn');
+                if (btn) btn.click();
+              }}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black text-xs shadow-xs transition-all shrink-0 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{isTa ? 'AI ஆசிரியரிடம் கேட்க' : 'Ask STEMBuddy Now'}</span>
+            </button>
+          </div>
+
           {/* Key Formulas Section */}
           {note.keyFormulas && note.keyFormulas.length > 0 && (
             <div className="flex flex-col gap-3">

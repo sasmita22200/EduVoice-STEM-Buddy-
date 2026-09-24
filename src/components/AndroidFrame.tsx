@@ -8,7 +8,6 @@ import {
   LogIn, 
   UserPlus, 
   BookOpen, 
-  Zap, 
   LayoutDashboard, 
   GraduationCap, 
   Users, 
@@ -106,33 +105,6 @@ export const AndroidFrame: React.FC<AndroidFrameProps> = ({
               <span>Syllabus 9–12</span>
             </button>
 
-            {/* Physics Studio */}
-            <button
-              type="button"
-              onClick={() => onViewChange('physicsStudio')}
-              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                currentView === 'physicsStudio'
-                  ? 'bg-cyan-600 text-white shadow-xs'
-                  : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              <Zap className="w-3.5 h-3.5 text-cyan-300" />
-              <span>Class 12 Physics</span>
-            </button>
-
-            {/* Botany Studio */}
-            <button
-              type="button"
-              onClick={() => onViewChange('botanyStudio')}
-              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                currentView === 'botanyStudio'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Class 11 Botany</span>
-            </button>
 
             <span className="h-4 w-px bg-slate-200 mx-1" />
 

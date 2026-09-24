@@ -81,6 +81,7 @@ export default function App() {
               const buddyBtn = document.getElementById('stembuddy-trigger-btn');
               if (buddyBtn) buddyBtn.click();
             }}
+            onLogout={() => setCurrentView('login')}
           />
         ) : currentView === 'chapterLearning' ? (
           <ChapterLearningSuite
@@ -134,6 +135,10 @@ export default function App() {
             language={language}
             onLanguageChange={setLanguage}
             onSwitchToSignUp={() => setCurrentView('signUp')}
+            onLoginSuccess={(profile, targetView) => {
+              setCurrentProfile(profile);
+              setCurrentView(targetView || 'studentDashboard');
+            }}
           />
         ) : (
           <RegistrationForm
@@ -146,12 +151,19 @@ export default function App() {
         )}
       </AndroidFrame>
 
-      {/* Floating STEMBuddy AI Tutor grounded in the active chapter notes */}
-      <STEMBuddyFloatingChat
-        lang={language}
-        currentChapterId={selectedChapterId}
-        onLanguageChange={setLanguage}
-      />
+      {/* Floating STEMBuddy AI Tutor trained for Classes 9 to 12 across all subjects */}
+      {(() => {
+        const activeChapter = ALL_CHAPTERS.find(c => c.id === selectedChapterId);
+        return (
+          <STEMBuddyFloatingChat
+            lang={language}
+            currentClass={activeChapter?.classLevel || currentProfile.classLevel || 10}
+            currentChapterId={selectedChapterId}
+            currentChapterTitle={language === 'ta' ? activeChapter?.titleTa : activeChapter?.titleEn}
+            onLanguageChange={setLanguage}
+          />
+        );
+      })()}
 
       {/* Registration Success Modal */}
       <SuccessModal
